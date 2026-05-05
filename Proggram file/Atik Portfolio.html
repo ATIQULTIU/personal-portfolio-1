@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MD ATIQUL ISLAM (Atik) - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=Rajdhani:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0e17;
+      --surface: #111827;
+      --text: #e0f2fe;
+      --primary: #00e5ff;
+      --secondary: #7c3aed;
+    }
+    html, body { height: 100%; margin: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Rajdhani', sans-serif; }
+
+    .glow-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      animation: glow-pulse 2s ease-in-out infinite;
+    }
+    @keyframes glow-pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes scan-line {
+      0% { top: -100%; }
+      100% { top: 100%; }
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink-caret {
+      50% { border-color: transparent; }
+    }
+    .robot-avatar {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 4px;
+      animation: float 3s ease-in-out infinite;
+    }
+    .robot-avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .robot-avatar-inner::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 30%;
+      background: linear-gradient(180deg, transparent, rgba(0,229,255,0.1));
+      top: -100%;
+      animation: scan-line 3s linear infinite;
+    }
+    .card-robot {
+      background: var(--surface);
+      border: 1px solid rgba(0,229,255,0.15);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-robot::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+    .skill-bar {
+      height: 6px;
+      background: rgba(0,229,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 3px;
+      transition: width 1s ease;
+    }
+    .nav-link {
+      position: relative;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .nav-link:hover { color: var(--primary); }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%; right: 50%;
+      height: 2px;
+      background: var(--primary);
+      transition: all 0.3s;
+    }
+    .nav-link:hover::after { left: 0; right: 0; }
+    .hex-grid {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 0L60 15V45L30 60L0 45V15Z' fill='none' stroke='%2300e5ff' stroke-width='0.5'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      animation: grid-shift 40s linear infinite;
+    }
+    #cyber-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+      background: radial-gradient(circle at 15% 15%, rgba(0,229,255,0.14), transparent 14%), radial-gradient(circle at 80% 10%, rgba(124,58,237,0.12), transparent 16%), radial-gradient(circle at 50% 80%, rgba(0,229,255,0.08), transparent 24%);
+    }
+    #cyber-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02) 1px, transparent 1px, transparent 36px), repeating-linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02) 1px, transparent 1px, transparent 36px);
+      opacity: 0.12;
+      mix-blend-mode: screen;
+    }
+    .glow-node {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      box-shadow: 0 0 18px rgba(0,229,255,0.75), 0 0 30px rgba(124,58,237,0.45);
+      border: 1px solid rgba(0,229,255,0.7);
+      animation: pulse-node 2.8s ease-in-out infinite;
+    }
+    .glow-node::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      background: rgba(124,58,237,0.4);
+    }
+    .circuit-line {
+      position: absolute;
+      width: 2px;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,229,255,0.5) 40%, rgba(124,58,237,0.85) 100%);
+      opacity: 0.8;
+      filter: blur(0.5px);
+      animation: flow-line 3.6s linear infinite;
+    }
+    .data-stream {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(0,229,255,0.9), rgba(124,58,237,0.8), transparent);
+      opacity: 0.75;
+      filter: blur(0.8px);
+      animation: slide-stream 5.2s linear infinite;
+    }
+    .stream-wipe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    @keyframes pulse-node {
+      0%, 100% { transform: scale(0.92); opacity: 0.85; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+    @keyframes flow-line {
+      0% { transform: translateY(-12px); opacity: 0.1; }
+      50% { opacity: 0.9; }
+      100% { transform: translateY(12px); opacity: 0.1; }
+    }
+    @keyframes slide-stream {
+      0% { transform: translateX(-120%); }
+      100% { transform: translateX(120%); }
+    }
+    .section { position: relative; z-index: 1; }
+    .timeline-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+    }
+    .timeline-line {
+      width: 2px;
+      background: linear-gradient(180deg, var(--primary), var(--secondary));
+    }
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      background: rgba(0,229,255,0.1);
+      border: 1px solid rgba(0,229,255,0.3);
+      color: var(--primary);
+    }
+    .typing-text {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid var(--primary);
+      animation: typing 3s steps(40) 1s forwards, blink-caret 0.7s step-end infinite;
+      width: 0;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in:nth-child(2) { animation-delay: 0.2s; }
+    .fade-in:nth-child(3) { animation-delay: 0.4s; }
+    .fade-in:nth-child(4) { animation-delay: 0.6s; }
+
+    /* New animated background elements */
+    .floating-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: float-particle 8s ease-in-out infinite;
+    }
+    .floating-particle:nth-child(odd) {
+      background: var(--secondary);
+      animation-duration: 10s;
+      animation-delay: 2s;
+    }
+    .floating-particle:nth-child(3n) {
+      width: 6px;
+      height: 6px;
+      animation-duration: 12s;
+      animation-delay: 4s;
+    }
+
+    .code-snippet {
+      position: absolute;
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      color: rgba(0,229,255,0.4);
+      white-space: nowrap;
+      opacity: 0.3;
+      animation: code-fall 15s linear infinite;
+    }
+    .code-snippet:nth-child(even) {
+      color: rgba(124,58,237,0.4);
+      animation-duration: 18s;
+      animation-delay: 5s;
+    }
+
+    .rotating-gear {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(0,229,255,0.3);
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: rotate-gear 20s linear infinite;
+    }
+    .rotating-gear::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(124,58,237,0.3);
+      border-radius: 50%;
+    }
+    .rotating-gear::after {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      width: 4px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .circuit-path {
+      position: absolute;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: 0.5;
+      animation: circuit-pulse 4s ease-in-out infinite;
+    }
+    .circuit-path:nth-child(odd) {
+      height: 3px;
+      animation-duration: 6s;
+      animation-delay: 1s;
+    }
+
+    @keyframes float-particle {
+      0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+      25% { transform: translateY(-20px) translateX(10px) scale(1.2); opacity: 0.8; }
+      50% { transform: translateY(-40px) translateX(-10px) scale(0.8); opacity: 0.5; }
+      75% { transform: translateY(-20px) translateX(5px) scale(1.1); opacity: 0.7; }
+    }
+
+    @keyframes code-fall {
+      0% { transform: translateY(-100vh) rotateX(0deg); opacity: 0; }
+      10% { opacity: 0.3; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(100vh) rotateX(360deg); opacity: 0; }
+    }
+
+    @keyframes rotate-gear {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes circuit-pulse {
+      0%, 100% { opacity: 0.2; transform: scaleX(0.8); }
+      50% { opacity: 0.8; transform: scaleX(1.2); }
+    }
+
+    @keyframes grid-shift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(60px, 60px); }
+    }
+
+    /* Enhanced background gradients */
+    #cyber-bg {
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(0,229,255,0.15), transparent 20%),
+        radial-gradient(circle at 80% 20%, rgba(124,58,237,0.12), transparent 25%),
+        radial-gradient(circle at 40% 80%, rgba(0,229,255,0.08), transparent 30%),
+        radial-gradient(circle at 60% 60%, rgba(124,58,237,0.06), transparent 35%),
+        linear-gradient(45deg, rgba(0,229,255,0.02) 0%, transparent 50%, rgba(124,58,237,0.02) 100%);
+      animation: bg-shift 30s ease-in-out infinite;
+    }
+
+    @keyframes bg-shift {
+      0%, 100% { background-position: 0% 0%; }
+      25% { background-position: 10% 10%; }
+      50% { background-position: -10% -10%; }
+      75% { background-position: 5% 5%; }
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full overflow-auto">
+  <div class="hex-grid"></div>
+  <div id="cyber-bg">
+    <span class="glow-node" style="top: 8%; left: 14%;"></span>
+    <span class="glow-node" style="top: 20%; left: 78%; animation-delay: 0.8s;"></span>
+    <span class="glow-node" style="top: 58%; left: 25%; animation-delay: 1.2s;"></span>
+    <span class="glow-node" style="top: 74%; left: 68%; animation-delay: 1.6s;"></span>
+    <span class="glow-node" style="top: 42%; left: 52%; animation-delay: 0.4s;"></span>
+    <span class="circuit-line" style="top: 12%; left: 18%; height: 38%; animation-duration: 5s;"></span>
+    <span class="circuit-line" style="top: 28%; left: 82%; height: 44%; animation-duration: 6.2s;"></span>
+    <span class="circuit-line" style="top: 50%; left: 33%; height: 50%; animation-duration: 4.4s;"></span>
+    <span class="circuit-line" style="top: 60%; left: 67%; height: 36%; animation-duration: 5.6s;"></span>
+    <span class="data-stream" style="top: 22%; left: -40%; width: 38%; animation-duration: 4.5s;"></span>
+    <span class="data-stream" style="top: 45%; left: -55%; width: 46%; animation-duration: 5.4s;"></span>
+    <span class="data-stream" style="top: 68%; left: -30%; width: 52%; animation-duration: 4.8s;"></span>
+
+    <!-- New floating particles -->
+    <span class="floating-particle" style="top: 15%; left: 10%; animation-delay: 0s;"></span>
+    <span class="floating-particle" style="top: 35%; left: 85%; animation-delay: 3s;"></span>
+    <span class="floating-particle" style="top: 65%; left: 20%; animation-delay: 6s;"></span>
+    <span class="floating-particle" style="top: 80%; left: 70%; animation-delay: 9s;"></span>
+    <span class="floating-particle" style="top: 50%; left: 40%; animation-delay: 12s;"></span>
+    <span class="floating-particle" style="top: 25%; left: 60%; animation-delay: 15s;"></span>
+
+    <!-- Code snippets -->
+    <span class="code-snippet" style="top: 10%; left: 5%;">function(){return true;}</span>
+    <span class="code-snippet" style="top: 30%; left: 90%;">import sys; print('AI')</span>
+    <span class="code-snippet" style="top: 55%; left: 15%;">const data = [];</span>
+    <span class="code-snippet" style="top: 75%; left: 80%;">SELECT * FROM users;</span>
+
+    <!-- Rotating gears -->
+    <span class="rotating-gear" style="top: 10%; left: 75%; animation-delay: 0s;"></span>
+    <span class="rotating-gear" style="top: 40%; left: 5%; animation-delay: 5s;"></span>
+    <span class="rotating-gear" style="top: 70%; left: 45%; animation-delay: 10s;"></span>
+
+    <!-- Circuit paths -->
+    <span class="circuit-path" style="top: 18%; left: 30%; transform: rotate(45deg);"></span>
+    <span class="circuit-path" style="top: 62%; left: 55%; transform: rotate(-30deg);"></span>
+    <span class="circuit-path" style="top: 85%; left: 25%; transform: rotate(60deg);"></span>
+  </div>
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0e17]/90 backdrop-blur-md border-b border-cyan-500/10">
+   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between"><span class="font-['Orbitron'] text-lg font-bold text-cyan-400">&lt;A.i.Atik/&gt;</span>
+    <div class="hidden md:flex gap-2"><a href="#about" class="nav-link text-sm">About</a> <a href="#skills" class="nav-link text-sm">Skills</a> <a href="#education" class="nav-link text-sm">Education</a> <a href="#training" class="nav-link text-sm">Training</a> <a href="#contact" class="nav-link text-sm">Contact</a>
+    </div><button id="mobile-menu-btn" class="md:hidden text-cyan-400"><i data-lucide="menu"></i></button>
+   </div>
+   <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 flex flex-col gap-2"><a href="#about" class="nav-link text-sm">About</a> <a href="#skills" class="nav-link text-sm">Skills</a> <a href="#education" class="nav-link text-sm">Education</a> <a href="#training" class="nav-link text-sm">Training</a> <a href="#contact" class="nav-link text-sm">Contact</a>
+   </div>
+  </nav><!-- Hero -->
+  <section class="section min-h-[90%] flex items-center justify-center pt-20 px-4">
+   <div class="text-center">
+    <div class="robot-avatar mx-auto mb-8">
+     <div class="robot-avatar-inner">
+      <img src="WhatsApp Image 2024-12-17 at 12.43.49 AM.jpeg" alt="Profile Picture" class="w-full h-full object-cover rounded-full">
+     </div>
+    </div>
+    <h1 id="hero-title" class="font-['Orbitron'] text-3xl md:text-5xl font-black mb-3 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">MD ATIQUL ISLAM (Atik)</h1>
+    <p id="hero-subtitle" class="font-['Orbitron'] text-lg md:text-xl text-cyan-300/80 mb-6">Software Engineer</p>
+    <div class="glow-line max-w-xs mx-auto mb-6"></div>
+    <p class="text-gray-400 max-w-lg mx-auto text-base">Aspiring Software Engineer with practical expertise in Python, JavaScript, .NET Core, and web development. Passionate about building efficient solutions and committed to growing within a dynamic, innovation-focused software environment.</p>
+    <div class="flex gap-4 justify-center mt-8"><a href="#contact" class="px-6 py-2 bg-cyan-500/10 border border-cyan-500/40 rounded-lg text-cyan-400 hover:bg-cyan-500/20 transition font-semibold text-sm">Contact Me</a> <a href="#skills" class="px-6 py-2 bg-purple-500/10 border border-purple-500/40 rounded-lg text-purple-400 hover:bg-purple-500/20 transition font-semibold text-sm">View Skills</a>
+    </div>
+   </div>
+  </section><!-- About -->
+  <section id="about" class="section max-w-4xl mx-auto px-4 py-16">
+   <h2 class="font-['Orbitron'] text-2xl font-bold text-cyan-400 mb-6 flex items-center gap-3"><i data-lucide="user" class="w-6 h-6"></i> About Me</h2>
+   <div class="card-robot p-6">
+    <div class="grid md:grid-cols-2 gap-6">
+     <div>
+      <p class="text-gray-300 leading-relaxed mb-4">To grow as a skilled professional in a challenging and dynamic work environment where I can apply my motivation, confidence, and problem-solving abilities.</p>
+      <p class="text-gray-400 text-sm">I aim to contribute meaningfully to an organization by demonstrating dedication, efficiency, and integrity while continuously developing my skills.</p>
+     </div>
+     <div class="space-y-3 text-sm">
+      <div class="flex items-center gap-3">
+       <i data-lucide="map-pin" class="w-4 h-4 text-cyan-400"></i><span>Sonatola-5826, Bogura, Bangladesh</span>
+      </div>
+      <div class="flex items-center gap-3">
+       <i data-lucide="phone" class="w-4 h-4 text-cyan-400"></i><span>+8801701508524</span>
+      </div>
+      <div class="flex items-center gap-3">
+       <i data-lucide="mail" class="w-4 h-4 text-cyan-400"></i><span>atik.cmttiu1001@gmail.com</span>
+      </div>
+      <div class="flex items-center gap-3">
+       <i data-lucide="calendar" class="w-4 h-4 text-cyan-400"></i><span>DOB: December 31, 1992</span>
+      </div>
+      <div class="flex items-center gap-3">
+       <i data-lucide="heart" class="w-4 h-4 text-cyan-400"></i><span>Blood Group: B+</span>
+      </div>
+      <div class="flex items-center gap-3">
+       <i data-lucide="globe" class="w-4 h-4 text-cyan-400"></i><span>Nationality: Bangladeshi</span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Skills -->
+  <section id="skills" class="section max-w-4xl mx-auto px-4 py-16">
+   <h2 class="font-['Orbitron'] text-2xl font-bold text-cyan-400 mb-6 flex items-center gap-3"><i data-lucide="cpu" class="w-6 h-6"></i> Skills Matrix</h2>
+   <div class="grid md:grid-cols-2 gap-4">
+    <div class="card-robot p-5 fade-in">
+     <h3 class="text-purple-400 font-semibold mb-3 text-sm font-['Orbitron']">Programming Languages</h3>
+     <div class="flex flex-wrap gap-2"><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">CSS</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">Java</span><span class="tag">.NET</span><span class="tag">PHP</span><span class="tag">Oracle</span>
+     </div>
+    </div>
+    <div class="card-robot p-5 fade-in">
+     <h3 class="text-purple-400 font-semibold mb-3 text-sm font-['Orbitron']">Technical Skills</h3>
+     <div class="space-y-3">
+      <div>
+       <span class="text-xs text-gray-400">Software Development</span>
+       <div class="skill-bar">
+        <div class="skill-bar-fill" style="width:85%"></div>
+       </div>
+      </div>
+      <div>
+       <span class="text-xs text-gray-400">Networking</span>
+       <div class="skill-bar">
+        <div class="skill-bar-fill" style="width:80%"></div>
+       </div>
+      </div>
+      <div>
+       <span class="text-xs text-gray-400">Server Management</span>
+       <div class="skill-bar">
+        <div class="skill-bar-fill" style="width:75%"></div>
+       </div>
+      </div>
+      <div>
+       <span class="text-xs text-gray-400">Data Entry</span>
+       <div class="skill-bar">
+        <div class="skill-bar-fill" style="width:90%"></div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="card-robot p-5 fade-in">
+     <h3 class="text-purple-400 font-semibold mb-3 text-sm font-['Orbitron']">Languages</h3>
+     <div class="flex flex-wrap gap-2">
+      <span class="tag">Bengali</span><span class="tag">English</span><span class="tag">Hindi</span>
+     </div>
+    </div>
+    <div class="card-robot p-5 fade-in">
+     <h3 class="text-purple-400 font-semibold mb-3 text-sm font-['Orbitron']">Looking For</h3>
+     <div class="text-sm text-gray-300 space-y-1">
+      <p>🎯 Entry Level Job (Full Time)</p>
+      <p>📍 Preferred: Dhaka</p>
+      <p>🏢 IT / Telecom / Software</p>
+     </div>
+    </div>
+   </div>
+  </section><!-- Education -->
+  <section id="education" class="section max-w-4xl mx-auto px-4 py-16">
+   <h2 class="font-['Orbitron'] text-2xl font-bold text-cyan-400 mb-6 flex items-center gap-3"><i data-lucide="graduation-cap" class="w-6 h-6"></i> Education</h2>
+   <div class="space-y-6">
+    <div class="card-robot p-5 flex gap-4">
+     <div class="flex flex-col items-center">
+      <div class="timeline-dot"></div>
+      <div class="timeline-line flex-1 mt-1"></div>
+     </div>
+     <div>
+      <h3 class="font-semibold text-white">BSc in Computer Science &amp; Engineering</h3>
+      <p class="text-cyan-400 text-sm">Techno India University, India</p>
+      <p class="text-gray-400 text-xs mt-1"> 2019 • 4 Years</p>
+     </div>
+    </div>
+    <div class="card-robot p-5 flex gap-4">
+     <div class="flex flex-col items-center">
+      <div class="timeline-dot"></div>
+      <div class="timeline-line flex-1 mt-1"></div>
+     </div>
+     <div>
+      <h3 class="font-semibold text-white">Diploma in Computer Engineering</h3>
+      <p class="text-cyan-400 text-sm">Bangladesh Institute Of Information Technology (BIIT), Bogra</p>
+      <p class="text-gray-400 text-xs mt-1"> 2015 • 4 Years</p>
+     </div>
+    </div>
+    <div class="card-robot p-5 flex gap-4">
+     <div class="flex flex-col items-center">
+      <div class="timeline-dot"></div>
+     </div>
+     <div>
+      <h3 class="font-semibold text-white">SSC (Science)</h3>
+      <p class="text-cyan-400 text-sm">Sonatola Pilot High School, Bogra</p>
+      <p class="text-gray-400 text-xs mt-1"> • 2007</p>
+     </div>
+    </div>
+   </div>
+  </section><!-- Training -->
+  <section id="training" class="section max-w-4xl mx-auto px-4 py-16">
+   <h2 class="font-['Orbitron'] text-2xl font-bold text-cyan-400 mb-6 flex items-center gap-3"><i data-lucide="award" class="w-6 h-6"></i> Training</h2>
+   <div class="grid md:grid-cols-2 gap-4">
+    <div class="card-robot p-5">
+     <h3 class="font-semibold text-white text-sm">Windows Server 2012 (70-410)</h3>
+     <p class="text-cyan-400 text-xs mt-1">New Horizons Computer Learning Centers</p>
+     <p class="text-gray-400 text-xs">Dhaka, Bangladesh • 2014 • 72 Hours</p>
+    </div>
+    <div class="card-robot p-5">
+     <h3 class="font-semibold text-white text-sm">.NET Core</h3>
+     <p class="text-cyan-400 text-xs mt-1">ORIENS INFOTECH PVT. LTD</p>
+     <p class="text-gray-400 text-xs">Kolkata, India • 2017 • One Month</p>
+    </div>
+   </div>
+  </section><!-- Contact -->
+  <section id="contact" class="section max-w-4xl mx-auto px-4 py-16 pb-24">
+   <h2 class="font-['Orbitron'] text-2xl font-bold text-cyan-400 mb-6 flex items-center gap-3"><i data-lucide="send" class="w-6 h-6"></i> Contact</h2>
+   <div class="card-robot p-6">
+    <div class="grid md:grid-cols-2 gap-6">
+     <div class="space-y-4">
+      <h3 class="font-['Orbitron'] text-sm text-purple-400">Get In Touch</h3>
+      <div class="space-y-3 text-sm">
+       <div class="flex items-center gap-3">
+        <i data-lucide="mail" class="w-4 h-4 text-cyan-400"></i><span>atik.cmttiu1001@gmail.com</span>
+       </div>
+       <div class="flex items-center gap-3">
+        <i data-lucide="map-pin" class="w-4 h-4 text-cyan-400"></i><span>Near Fair Service, Sonatola, Bogura-5826</span>
+       </div>
+      </div>
+      <h3 class="font-['Orbitron'] text-sm text-purple-400 pt-4">References</h3>
+      <div class="text-xs text-gray-400 space-y-2">
+       <p><strong class="text-gray-300">Md. Shahabuddin (Saikat)</strong><br>
+        BIIT, Bogra • biitbogra@gmail.com</p>
+       <p><strong class="text-gray-300">Ishan Ghosh</strong><br>
+        Techno India University • ishan.ghosh9@gmail.com</p>
+      </div>
+     </div>
+     <form id="contact-form" class="space-y-3"><input type="text" placeholder="Your Name" class="w-full bg-gray-800/50 border border-cyan-500/20 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400 transition" required> <input type="email" placeholder="Your Email" class="w-full bg-gray-800/50 border border-cyan-500/20 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400 transition" required> <textarea placeholder="Message" rows="3" class="w-full bg-gray-800/50 border border-cyan-500/20 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400 transition resize-none" required></textarea> <button type="submit" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg font-semibold text-sm hover:opacity-90 transition">Send Message</button>
+      <p id="form-msg" class="text-xs text-center hidden text-green-400">Message sent successfully!</p>
+     </form>
+    </div>
+   </div>
+  </section><!-- Footer -->
+  <footer class="section text-center py-6 border-t border-cyan-500/10">
+   <p class="text-xs text-gray-500 font-['Orbitron']">&lt;/&gt; Designed by MD ATIQUL ISLAM (Atik) • 2026</p>
+  </footer>
+  <script>
+    // Mobile menu
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Contact form
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('form-msg');
+      msg.classList.remove('hidden');
+      e.target.reset();
+      setTimeout(() => msg.classList.add('hidden'), 3000);
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('mobile-menu').classList.add('hidden');
+      });
+    });
+
+    lucide.createIcons();
+
+    // Element SDK
+    const defaultConfig = {
+      hero_title: 'MD ATIQUL ISLAM (Atik)',
+      hero_subtitle: 'Software Engineer',
+      background_color: '#0a0e17',
+      surface_color: '#111827',
+      text_color: '#e0f2fe',
+      primary_color: '#00e5ff',
+      secondary_color: '#7c3aed',
+      font_family: 'Rajdhani',
+      font_size: 16
+    };
+
+    if (window.elementSdk && typeof window.elementSdk.init === 'function') {
+      window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (config) => {
+        document.getElementById('hero-title').textContent = config.hero_title || defaultConfig.hero_title;
+        document.getElementById('hero-subtitle').textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+
+        const root = document.documentElement.style;
+        root.setProperty('--bg', config.background_color || defaultConfig.background_color);
+        root.setProperty('--surface', config.surface_color || defaultConfig.surface_color);
+        root.setProperty('--text', config.text_color || defaultConfig.text_color);
+        root.setProperty('--primary', config.primary_color || defaultConfig.primary_color);
+        root.setProperty('--secondary', config.secondary_color || defaultConfig.secondary_color);
+
+        document.body.style.fontFamily = `${config.font_family || defaultConfig.font_family}, sans-serif`;
+        const baseSize = config.font_size || defaultConfig.font_size;
+        document.body.style.fontSize = `${baseSize}px`;
+      },
+      mapToCapabilities: (config) => ({
+        recolorables: [
+          { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+          { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+          { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+          { get: () => config.primary_color || defaultConfig.primary_color, set: (v) => { config.primary_color = v; window.elementSdk.setConfig({ primary_color: v }); } },
+          { get: () => config.secondary_color || defaultConfig.secondary_color, set: (v) => { config.secondary_color = v; window.elementSdk.setConfig({ secondary_color: v }); } }
+        ],
+        borderables: [],
+        fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+        fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ['hero_title', config.hero_title || defaultConfig.hero_title],
+        ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle]
+      ])
+    });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f50abdfd5b28b01',t:'MTc3NzY1ODI3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
